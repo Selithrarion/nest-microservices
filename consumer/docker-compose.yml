@@ -1,8 +1,5 @@
-version: '3'
-
 services:
   postgres:
-    container_name: postgres
     image: postgres:latest
     ports:
       - '5432:5432'
@@ -14,10 +11,9 @@ services:
       - postgres
 
   pgadmin:
+    image: dpage/pgadmin4
     links:
       - postgres:postgres
-    container_name: pgadmin
-    image: dpage/pgadmin4
     ports:
       - '8080:80'
     volumes:
@@ -28,6 +24,12 @@ services:
       - postgres
     depends_on:
       - postgres
+
+volumes:
+  postgres:
+    driver: local
+  pg-admin:
+    driver: local
 
 networks:
   postgres:
